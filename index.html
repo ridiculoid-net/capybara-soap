@@ -333,10 +333,9 @@
         .about-section {
             padding: 5rem 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 3rem auto;
             background: white;
             border-radius: 12px;
-            margin: 3rem auto;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
@@ -448,10 +447,9 @@
             background: linear-gradient(135deg, #f5eee6 0%, #ede5dd 100%);
             padding: 4rem 2rem;
             text-align: center;
-            margin: 3rem 0;
+            margin: 3rem auto;
             border-radius: 12px;
             max-width: 1200px;
-            margin: 3rem auto;
             display: none;
         }
 
@@ -512,7 +510,7 @@
             background: #8b7355;
         }
 
-        /* Newsletter Modal */
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -520,14 +518,24 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
         }
 
         .modal.active {
-            display: flex;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .modal-wrapper {
+            position: relative;
         }
 
         .modal-content {
@@ -622,10 +630,6 @@
             color: #2c2c2c;
         }
 
-        .modal-wrapper {
-            position: relative;
-        }
-
         /* Quiz Modal */
         .quiz-modal {
             position: fixed;
@@ -634,14 +638,20 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
         }
 
         .quiz-modal.active {
-            display: flex;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
         }
 
         .quiz-container {
@@ -874,6 +884,195 @@
         
         <div class="faq-item">
             <div class="faq-question">
+                <span>Can I customize my soap preferences?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely! Take our Soap Quiz to share your preferences for materials, scents, and exfoliation levels. Your feedback directly influences our final product line, ensuring we create the soap that YOU want.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Does my 20% discount apply to the full launch?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! When you purchase any pre-launch gear, you'll receive a coupon code for 20% off your first Capybara Soap purchase when we launch in 2026. This is our way of thanking early supporters!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Modal -->
+    <div id="soap-quiz-content" class="quiz-modal">
+        <button class="close-btn" onclick="closeQuiz()">&times;</button>
+        <div class="quiz-container">
+            <h2 class="oswald-font">Help Us Design the Ultimate Soap!</h2>
+            <p class="montserrat-font">Your input is invaluable as we craft the perfect Capybara Soap line. Select your preferences below—it only takes a minute!</p>
+            
+            <form id="quiz-form">
+                <div class="question-group">
+                    <label for="material" class="montserrat-font">1. What primary <strong>material</strong> do you look for?</label>
+                    <select id="material" name="material" required>
+                        <option value="">-- Select an Option --</option>
+                        <option value="shea_butter">Shea Butter</option>
+                        <option value="goat_milk">Goat Milk</option>
+                        <option value="coconut_oil">Coconut Oil</option>
+                        <option value="olive_oil">Olive Oil (Castile)</option>
+                    </select>
+                </div>
+
+                <div class="question-group">
+                    <label for="scent" class="montserrat-font">2. What kind of <strong>scent profile</strong> do you prefer?</label>
+                    <select id="scent" name="scent" required>
+                        <option value="">-- Select an Option --</option>
+                        <option value="earthy">Earthy / Woody</option>
+                        <option value="citrus">Citrus / Bright</option>
+                        <option value="herbal">Herbal / Minty</option>
+                        <option value="unscented">Unscented</option>
+                    </select>
+                </div>
+                
+                <div class="question-group">
+                    <label for="texture" class="montserrat-font">3. How much <strong>exfoliation</strong> do you like?</label>
+                    <select id="texture" name="texture" required>
+                        <option value="">-- Select an Option --</option>
+                        <option value="none">None (Smooth)</option>
+                        <option value="light">Light (Oatmeal/Clay)</option>
+                        <option value="moderate">Moderate (Coffee/Seed)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="cta-button">Submit My Input</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Newsletter Modal -->
+    <div id="newsletter-modal" class="modal">
+        <div class="modal-wrapper">
+            <button class="close-modal" onclick="closeNewsletter()">&times;</button>
+            <div class="modal-content">
+                <h2 class="oswald-font">Stay in the Loop</h2>
+                <p>Get exclusive updates, early access to products, and special offers delivered to your inbox.</p>
+                
+                <form id="newsletter-form" class="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+
+                <div class="success-state">
+                    <div class="success-icon">✓</div>
+                    <h3>Welcome to the Community!</h3>
+                    <p>Check your email for exclusive updates and offers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+        </div>
+        <p>© 2025 Capybara Soap. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const quizBtn = document.querySelectorAll('.quiz-button');
+        const newsBtn = document.querySelectorAll('.newsletter-button');
+        const quizModal = document.getElementById('soap-quiz-content');
+        const newsModal = document.getElementById('newsletter-modal');
+        const quizForm = document.getElementById('quiz-form');
+        const newsForm = document.getElementById('newsletter-form');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Quiz Modal
+        quizBtn.forEach(btn => {
+            btn.addEventListener('click', () => {
+                quizModal.classList.add('active');
+            });
+        });
+
+        function closeQuiz() {
+            quizModal.classList.remove('active');
+        }
+
+        quizModal.addEventListener('click', (e) => {
+            if (e.target === quizModal) closeQuiz();
+        });
+
+        quizForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your input! We\'ll use this to design the perfect soap.');
+            closeQuiz();
+            quizForm.reset();
+        });
+
+        // Newsletter Modal
+        newsBtn.forEach(btn => {
+            btn.addEventListener('click', () => {
+                newsModal.classList.add('active');
+            });
+        });
+
+        function closeNewsletter() {
+            newsModal.classList.remove('active');
+        }
+
+        newsModal.addEventListener('click', (e) => {
+            if (e.target === newsModal) closeNewsletter();
+        });
+
+        newsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            document.querySelector('.newsletter-form').style.display = 'none';
+            document.querySelector('.success-state').style.display = 'block';
+            setTimeout(() => {
+                closeNewsletter();
+                document.querySelector('.newsletter-form').style.display = 'flex';
+                document.querySelector('.success-state').style.display = 'none';
+                newsForm.reset();
+            }, 2000);
+        });
+
+        // Mobile Menu
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.querySelectorAll('.mobile-menu-dropdown .nav-button, .mobile-menu-dropdown .nav-link').forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.closest('.faq-item');
+                item.classList.toggle('active');
+            });
+        });
+
+        function copyReferralCode() {
+            const code = document.getElementById('referral-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy & Share';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html><div class="faq-question">
                 <span>When will Capybara Soap launch?</span>
                 <i class="fas fa-chevron-down faq-icon"></i>
             </div>
@@ -893,15 +1092,3 @@
         </div>
 
         <div class="faq-item">
-            <div class="faq-question">
-                <span>Can I customize my soap preferences?</span>
-                <i class="fas fa-chevron-down faq-icon"></i>
-            </div>
-            <div class="faq-answer">
-                <p>Absolutely! Take our Soap Quiz to share your preferences for materials, scents, and exfoliation levels. Your feedback directly influences our final product line, ensuring we create the soap that YOU want.</p>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Does my 20% discount apply
