@@ -5,136 +5,902 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capybara Soap - Launching 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background-color: #fafaf8;
+        }
+
+        .oswald-font {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .fade-in-delay-1 { animation-delay: 0.1s; }
+        .fade-in-delay-2 { animation-delay: 0.2s; }
+        .fade-in-delay-3 { animation-delay: 0.3s; }
+
+        /* Header */
+        header.site-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8b7355;
+        }
+
+        .desktop-nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-button, .nav-link {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: #f0e8e0;
+            color: #2c2c2c;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-button:hover, .nav-link:hover {
+            background: #d4a574;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #2c2c2c;
+        }
+
+        .mobile-menu-dropdown {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            background: white;
+            border-bottom: 1px solid #e8e0d8;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #f5eee6 0%, #ede5dd 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #d4a574;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+            line-height: 1.2;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            color: #555;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #d4a574;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.25);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            background: #c2945f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(212, 165, 116, 0.35);
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #e8e0d8;
+            border-bottom: 1px solid #e8e0d8;
+        }
+
+        .progress-text {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e8e0d8;
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4a574, #c2945f);
+            width: 68%;
+            border-radius: 10px;
+            animation: slideInLeft 1.2s ease-out;
+        }
+
+        /* Merchandise Section */
+        .merch-grid {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .merch-grid h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #2c2c2c;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-tile {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .product-tile:nth-child(1) { animation-delay: 0.1s; }
+        .product-tile:nth-child(2) { animation-delay: 0.2s; }
+        .product-tile:nth-child(3) { animation-delay: 0.3s; }
+
+        .product-tile a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-tile:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            background: #f0e8e0;
+            object-fit: cover;
+        }
+
+        .product-tile h3 {
+            font-size: 1.3rem;
+            padding: 1.5rem 1.5rem 0.5rem;
+            color: #2c2c2c;
+        }
+
+        .product-incentive {
+            padding: 0 1.5rem 1.5rem;
+            font-size: 0.95rem;
+            color: #d4a574;
+            font-weight: 600;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: linear-gradient(135deg, #8b7355 0%, #a0826d 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .impact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-content p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .impact-content a {
+            color: #f5eee6;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .impact-content a:hover {
+            text-decoration: none;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            margin: 3rem auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c2c2c;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f5eee6, #ede5dd);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+            max-width: 800px;
+            margin: 3rem auto;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #2c2c2c;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .faq-item:nth-child(1) { animation-delay: 0.1s; }
+        .faq-item:nth-child(2) { animation-delay: 0.2s; }
+        .faq-item:nth-child(3) { animation-delay: 0.3s; }
+        .faq-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: #f0e8e0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #e8dfd0;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+            color: #d4a574;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #555;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 1.5rem;
+        }
+
+        /* Referral Section */
+        .referral-section {
+            background: linear-gradient(135deg, #f5eee6 0%, #ede5dd 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            border-radius: 12px;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .referral-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .referral-section p {
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            color: #555;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .referral-code-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .referral-code-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .referral-code {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4a574;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .copy-code-btn {
+            padding: 0.75rem 1.5rem;
+            background: #d4a574;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-code-btn:hover {
+            background: #c2945f;
+            transform: translateY(-2px);
+        }
+
+        .copy-code-btn.copied {
+            background: #8b7355;
+        }
+
+        /* Newsletter Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2c2c2c;
+        }
+
+        .modal-content p {
+            color: #555;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            padding: 0.75rem;
+            border: 2px solid #e8e0d8;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #d4a574;
+        }
+
+        .newsletter-form button {
+            padding: 0.75rem;
+            background: #d4a574;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: #c2945f;
+        }
+
+        .success-state {
+            display: none;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: #d4a574;
+            margin-bottom: 1rem;
+            animation: pulse 0.6s ease-out;
+        }
+
+        .success-state h3 {
+            font-size: 1.5rem;
+            color: #2c2c2c;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-state p {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #2c2c2c;
+        }
+
+        .modal-wrapper {
+            position: relative;
+        }
+
+        /* Quiz Modal */
+        .quiz-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .quiz-modal.active {
+            display: flex;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.5s ease-out;
+            position: relative;
+        }
+
+        .quiz-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c2c2c;
+        }
+
+        .quiz-container > p {
+            margin-bottom: 2rem;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .question-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .question-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+
+        .question-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8e0d8;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .question-group select:focus {
+            outline: none;
+            border-color: #d4a574;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #2c2c2c;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #2c2c2c;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #d4a574;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .merch-grid h2, .impact-content h2, .faq-section h2, .referral-section h2, .about-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .products-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .quiz-container, .modal-content {
+                padding: 2rem;
+            }
+
+            header.site-header {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
 </head>
-<body class="light-mode">
+<body>
     <header class="site-header">
         <div class="logo-area">
-            <img src="assets/capybara-logo.svg" alt="Capybara Soap Logo" class="logo">
+            <img src="assets/capybara-soap-logo.png" alt="Capybara Soap Logo" class="logo">
             <span class="brand-name oswald-font">Capybara Soap</span>
         </div>
         
         <nav class="desktop-nav">
             <button class="nav-button quiz-button">✨ Soap Quiz</button>
             <button class="nav-button newsletter-button">💌 Newsletter</button>
-            <a href="#contact" class="nav-link">Contact Us</a>
+            <a href="#faq" class="nav-link">FAQ</a>
         </nav>
 
-        <div class="utility-controls">
-            <button id="theme-toggle" aria-label="Toggle light and dark theme">
-                <i class="fas fa-sun"></i> </button>
-            <button class="mobile-menu-toggle" aria-label="Open menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
+        <button class="mobile-menu-toggle" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
 
     <div id="mobile-menu" class="mobile-menu-dropdown">
         <button class="nav-button quiz-button">✨ Soap Quiz</button>
         <button class="nav-button newsletter-button">💌 Newsletter</button>
-        <a href="#contact" class="nav-link">Contact Us</a>
+        <a href="#faq" class="nav-link">FAQ</a>
     </div>
 
     <section class="hero-section">
         <h1 class="oswald-font">Take It Easy. Good Soap is Coming.</h1>
         <p class="montserrat-font">We're crafting the perfect, most chill soap for your daily routine. Capybara Soap launches in 2026. Until then, grab some exclusive gear, get project updates, and help us choose the final design!</p>
-        <a href="#merch" class="cta-button">Get Your 20% Off Coupon Today</a>
+        <a href="#merch" class="cta-button" style="text-decoration: none;">Get Your 20% Off Coupon Today</a>
     </section>
+
+    <div class="progress-bar-container">
+        <p class="progress-text">68% of our community has voted on their ideal soap!</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
 
     <section id="merch" class="merch-grid">
         <h2 class="oswald-font">Exclusive Pre-Launch Gear</h2>
         
-        <article class="product-tile">
-            <a href="pdp-tee.html">
-                <img src="assets/tee-placeholder.jpg" alt="The Companion Tee" class="product-image">
-                <h3 class="oswald-font">The Companion Tee</h3>
-                <p class="montserrat-font product-incentive">Includes a 20% Off Soap Coupon!</p>
-            </a>
-        </article>
+        <div class="products-container">
+            <article class="product-tile">
+                <a href="pdp-tee.html">
+                    <img src="assets/companion-tee-placeholder.png" alt="The Companion Tee" class="product-image">
+                    <h3 class="oswald-font">The Companion Tee</h3>
+                    <p class="montserrat-font product-incentive">Includes a 20% Off Soap Coupon!</p>
+                </a>
+            </article>
 
-        <article class="product-tile">
-            <a href="pdp-hoodie.html">
-                <img src="assets/hoodie-placeholder.jpg" alt="The Riverbank Hoodie" class="product-image">
-                <h3 class="oswald-font">The Riverbank Hoodie</h3>
-                <p class="montserrat-font product-incentive">Includes a 20% Off Soap Coupon!</p>
-            </a>
-        </article>
+            <article class="product-tile">
+                <a href="pdp-hoodie.html">
+                    <img src="assets/riverbank-hoodie-placeholder.png" alt="The Riverbank Hoodie" class="product-image">
+                    <h3 class="oswald-font">The Riverbank Hoodie</h3>
+                    <p class="montserrat-font product-incentive">Includes a 20% Off Soap Coupon!</p>
+                </a>
+            </article>
 
-        <article class="product-tile">
-            <a href="pdp-mug.html">
-                <img src="assets/mug-placeholder.jpg" alt="The Hydro Mug" class="product-image">
-                <h3 class="oswald-font">The Hydro Mug</h3>
-                <p class="montserrat-font product-incentive">Includes a 20% Off Soap Coupon!</p>
-            </a>
-        </article>
+            <article class="product-tile">
+                <a href="pdp-mug.html">
+                    <img src="assets/mug-placeholder.png" alt="The Hydro Mug" class="product-image">
+                    <h3 class="oswald-font">The Hydro Mug</h3>
+                    <p class="montserrat-font product-incentive">Includes a 20% Off Soap Coupon!</p>
+                </a>
+            </article>
+        </div>
+    </section>
+
+    <section class="referral-section">
+        <h2 class="oswald-font">Share the Chill Vibes</h2>
+        <p class="montserrat-font">Tell your friends about Capybara Soap and earn rewards! Every referral gets you closer to free soap at launch.</p>
+        <div class="referral-code-box">
+            <p class="referral-code-label">Your Referral Code</p>
+            <div class="referral-code" id="referral-code">CAPY2026</div>
+            <button class="copy-code-btn" id="copy-btn" onclick="copyReferralCode()">Copy & Share</button>
+        </div>
     </section>
 
     <section class="impact-section">
         <div class="impact-content">
             <h2 class="oswald-font">Chill Out and Do Good.</h2>
-            <p class="montserrat-font">Every purchase secures your future discount **and** sends $1 directly to the <a href="https://www.worldwildlife.org/" target="_blank">World Wildlife Fund (WWF)</a> to support conservation efforts.</p>
+            <p class="montserrat-font">Every purchase secures your future discount <strong>and</strong> sends $1 directly to the <a href="https://www.worldwildlife.org/" target="_blank">World Wildlife Fund (WWF)</a> to support conservation efforts.</p>
         </div>
     </section>
 
-    <div id="soap-quiz-content" style="display:none;">
+    <section class="about-section" id="about">
+        <h2 class="oswald-font">About Capybara Soap</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Capybara Soap was born from a simple idea: quality skincare shouldn't be complicated. Inspired by the laid-back nature of capybaras—the chill of the animal kingdom—we're creating a soap line that's as relaxing to use as it is nourishing for your skin.</p>
+                <p>We believe in sustainable sourcing, premium natural ingredients, and supporting wildlife conservation. Every product is crafted with care, from our carefully selected botanical blends to our eco-friendly packaging.</p>
+                <p>Join our community of early supporters and help shape the future of relaxing skincare.</p>
+            </div>
+            <div class="about-image">
+                🧴
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <h2 class="oswald-font">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>When will Capybara Soap launch?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Capybara Soap is scheduled to launch in 2026! Pre-orders and exclusive community access will be available to our early supporters before the official launch date.</p>
+            </div>
         </div>
 
-
-    <footer class="site-footer">
-        <div class="social-links">
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What makes Capybara Soap different?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                <p>We prioritize sustainable sourcing, premium natural ingredients, and eco-conscious packaging. Plus, every purchase supports wildlife conservation through our partnership with the World Wildlife Fund. And yes, our soap is inspired by the chill vibes of capybaras!</p>
+            </div>
         </div>
-        <p>© 2025 Capybara Soap. All Rights Reserved.</p>
-    </footer>
 
-<div id="soap-quiz-content" class="quiz-modal" style="display:none;">
-        <div class="quiz-container">
-            <h2 class="oswald-font">Help Us Design the Ultimate Soap!</h2>
-            <p class="montserrat-font">Your input is invaluable as we craft the perfect Capybara Soap line. Select your preferences below—it only takes a minute!</p>
-            
-            <form id="quiz-form">
-                <div class="question-group">
-                    <label for="material" class="montserrat-font">1. What primary **material** do you look for?</label>
-                    <select id="material" name="material" required>
-                        <option value="">-- Select an Option --</option>
-                        <option value="shea_butter">Shea Butter</option>
-                        <option value="goat_milk">Goat Milk</option>
-                        <option value="coconut_oil">Coconut Oil</option>
-                        <option value="olive_oil">Olive Oil (Castile)</option>
-                    </select>
-                </div>
-
-                <div class="question-group">
-                    <label for="scent" class="montserrat-font">2. What kind of **scent profile** do you prefer?</label>
-                    <select id="scent" name="scent" required>
-                        <option value="">-- Select an Option --</option>
-                        <option value="earthy">Earthy / Woody</option>
-                        <option value="citrus">Citrus / Bright</option>
-                        <option value="herbal">Herbal / Minty</option>
-                        <option value="unscented">Unscented</option>
-                    </select>
-                </div>
-                
-                <div class="question-group">
-                    <label for="texture" class="montserrat-font">3. How much **exfoliation** do you like?</label>
-                    <select id="texture" name="texture" required>
-                        <option value="">-- Select an Option --</option>
-                        <option value="none">None (Smooth)</option>
-                        <option value="light">Light (Oatmeal/Clay)</option>
-                        <option value="moderate">Moderate (Coffee/Seed)</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="cta-button">Submit My Input</button>
-            </form>
-
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I customize my soap preferences?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely! Take our Soap Quiz to share your preferences for materials, scents, and exfoliation levels. Your feedback directly influences our final product line, ensuring we create the soap that YOU want.</p>
+            </div>
         </div>
-    </div>
 
-  
-    <script src="js/main.js"></script>
-</body>
-</html>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Does my 20% discount apply
